@@ -7,7 +7,7 @@ body {
   min-height: 100vh;
   overflow-y: auto;
   margin: 0;
-  font-family: 'Poppins', 'Noto Sans SC', sans-serif;
+  font-family: 'Pacifico', 'Poppins', 'Noto Sans SC', sans-serif;
   text-align: center;
   background-size: cover;
   background-attachment: fixed;
@@ -23,7 +23,7 @@ body {
   user-select: none;
   position: relative;
   z-index: 10;
-  text-shadow: 0 0 20px #ff9999, 0 0 40px #ff6666; /* glowing heart */
+  text-shadow: 0 0 20px #ff9999, 0 0 40px #ff6666;
 }
 
 @keyframes heartbeat {
@@ -113,4 +113,22 @@ body {
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1); }
+}
+
+/* Floating petals/stars around heart */
+.petal {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #ff4d4d 0%, #ff99cc 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 8;
+  animation: floatPetal 4s linear infinite;
+}
+
+@keyframes floatPetal {
+  0% { transform: translate(0,0) scale(1); opacity: 1; }
+  100% { transform: translate(calc(-50px + 100px*random()), -300px) scale(0.5); opacity: 0; }
 }
