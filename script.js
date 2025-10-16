@@ -109,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
         img.src = data.secure_url;
         img.style.opacity = "0";
         photoGallery.appendChild(img);
+        savePhoto(data.secure_url);
 
         // fade in softly
         setTimeout(() => {
@@ -129,3 +130,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1500);
   });
 });
+// 🌟 Save uploaded photo URLs to localStorage
+function savePhoto(url) {
+  let photos = JSON.parse(localStorage.getItem("graduationPhotos")) || [];
+  photos.push(url);
+  localStorage.setItem("graduationPhotos", JSON.stringify(photos));
+}
+
+// 🌟 Load saved photos on startup
+function loadPhotos() {
+  let photos = JSON.parse(localStorage.getItem("graduationPhotos")) || [];
+  photos.forEach(url => {
+    const img = document.createElement("img");
+    img.src = url;
+    photoGallery.appendChild(img);
+  });
+}
+
+// Call it when page loads
+loadPhotos();
+
