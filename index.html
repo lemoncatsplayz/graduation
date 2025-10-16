@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>菩提华文中学 毕业纪念墙</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <audio id="bg-music" src="music.mp3" autoplay loop></audio>
+
+  <!-- Heart -->
+  <div id="heart">❤️</div>
+
+  <!-- Main message (hidden at first) -->
+  <div id="main-content">
+    <h2>毕业快乐</h2>
+    <p id="thank-text">
+      青春不散场，友情永不灭。<br>
+      愿我们在未来的旅途中，笑容依旧灿烂。<br>
+      下面可以放你们拍的照片哦。
+    </p>
+
+    <div id="upload-section">
+      <input type="file" id="photoInput" accept="image/*" multiple />
+      <div id="photoGallery"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
