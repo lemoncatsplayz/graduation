@@ -42,17 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
         span.style.top = `${endY}px`;
       }, index * 150);
 
-      // Fade out and remove
-      setTimeout(() => {
-        span.style.opacity = "0";
-      }, 2200 + index * 100);
-
-      setTimeout(() => {
-        span.remove();
-      }, 3000 + index * 100);
+      setTimeout(() => { span.style.opacity = "0"; }, 2200 + index * 100);
+      setTimeout(() => { span.remove(); }, 3000 + index * 100);
     });
 
-    // After animation: remove heart and show wall
     setTimeout(() => {
       heart.style.opacity = "0";
       setTimeout(() => {
@@ -66,10 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
   heart.addEventListener("touchstart", showBlessings);
 
   // 🌩️ Cloudinary setup
-  const cloudName = "dsyefqzi5"; // e.g. "mycloud123"
-  const uploadPreset = "graduation"; // e.g. "unsigned_upload"
+  const cloudName = "dsyefqzi5"; 
+  const uploadPreset = "graduation"; 
 
-  // 🌸 Create uploading message
   const uploadingMsg = document.createElement("div");
   uploadingMsg.textContent = "正在上传照片，请稍候…";
   uploadingMsg.style.position = "fixed";
@@ -86,12 +78,11 @@ document.addEventListener("DOMContentLoaded", () => {
   uploadingMsg.style.zIndex = "999";
   document.body.appendChild(uploadingMsg);
 
-  // 🌷 Handle image uploads (Cloudinary)
   photoInput.addEventListener("change", async (e) => {
     const files = e.target.files;
     if (!files.length) return;
 
-    uploadingMsg.style.display = "block"; // show message
+    uploadingMsg.style.display = "block";
 
     for (let file of files) {
       const formData = new FormData();
@@ -109,9 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         img.src = data.secure_url;
         img.style.opacity = "0";
         photoGallery.appendChild(img);
-        savePhoto(data.secure_url);
 
-        // fade in softly
         setTimeout(() => {
           img.style.transition = "opacity 1.5s";
           img.style.opacity = "1";
@@ -122,31 +111,28 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // hide message after uploads done
     setTimeout(() => {
       uploadingMsg.style.transition = "opacity 1s";
       uploadingMsg.style.opacity = "0";
       setTimeout(() => (uploadingMsg.style.display = "none"), 1000);
     }, 1500);
   });
+
+  // 🌸 Floating petals around heart
+  function createPetals() {
+    for (let i = 0; i < 20; i++) {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      document.body.appendChild(petal);
+
+      const startX = window.innerWidth / 2 + (Math.random() * 100 - 50);
+      const startY = window.innerHeight / 2 + (Math.random() * 50 - 25);
+
+      petal.style.left = startX + 'px';
+      petal.style.top = startY + 'px';
+      petal.style.animationDelay = (Math.random() * 3) + 's';
+    }
+  }
+
+  createPetals();
 });
-// 🌟 Save uploaded photo URLs to localStorage
-function savePhoto(url) {
-  let photos = JSON.parse(localStorage.getItem("graduationPhotos")) || [];
-  photos.push(url);
-  localStorage.setItem("graduationPhotos", JSON.stringify(photos));
-}
-
-// 🌟 Load saved photos on startup
-function loadPhotos() {
-  let photos = JSON.parse(localStorage.getItem("graduationPhotos")) || [];
-  photos.forEach(url => {
-    const img = document.createElement("img");
-    img.src = url;
-    photoGallery.appendChild(img);
-  });
-}
-
-// Call it when page loads
-loadPhotos();
-
